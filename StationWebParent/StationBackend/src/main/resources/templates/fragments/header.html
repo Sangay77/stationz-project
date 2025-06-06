@@ -1,0 +1,11 @@
+<div th:fragment="header">
+    <div class="d-flex align-items-center gap-3">
+        <span sec:authentication="principal.fullname" class="fw-semibold">User Name</span>
+        <a href="#" onclick="event.preventDefault(); document.logoutForm.submit();" class="text-danger">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+        <form name="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        </form>
+    </div>
+</div>

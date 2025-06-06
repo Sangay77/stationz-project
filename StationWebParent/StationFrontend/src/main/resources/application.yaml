@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: station-project-frontend
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/stationdb
+    username: root
+    password: Noko@2025
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 2
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      thymeleaf: DEBUG
+      springframework:
+        security: DEBUG
+
+server:
+  port: 8086
+#  servlet:
+#    context-path: /station
+
+# Custom RMA-related configuration
+address:
+  base:
+    url: http://uatbfssecure.rma.org.bt:8080/BFSSecure/nvpapi
+
+beneficiary:
+  benf_id: BE10000221
+
+keys:
+  private-path: classpath:pki/BE10000221.key
+
+
+

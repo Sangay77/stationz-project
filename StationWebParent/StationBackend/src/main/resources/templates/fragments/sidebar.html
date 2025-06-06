@@ -1,0 +1,16 @@
+<div th:fragment="sidebar">
+    <a th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <img id="thumbnail" alt="Site Logo" th:src="@{${SITE_LOGO}}" class="me-2" style="height: 38px;">
+        <span class="fs-5 fw-bold">[[${SITE_NAME}]]</span>
+    </a>
+    <hr/>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li><a th:href="@{/users}" class="nav-link link-dark"><i class="fas fa-users"></i> Users</a></li>
+        <li><a th:href="@{/categories}" class="nav-link link-dark"><i class="fas fa-tags"></i> Categories</a></li>
+        <li><a th:href="@{/products}" class="nav-link link-dark"><i class="fas fa-box-open"></i> Products</a></li>
+        <li><a th:href="@{/customers}" class="nav-link link-dark"><i class="fas fa-user-tie"></i> Customers</a></li>
+        <li><a th:href="@{/shipping}" class="nav-link link-dark"><i class="fas fa-truck"></i> Shipping</a></li>
+        <li><a th:href="@{/settings}" class="nav-link link-dark"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+    <hr/>
+</div>

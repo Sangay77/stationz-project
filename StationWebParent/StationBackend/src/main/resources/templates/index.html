@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<div th:replace="~{fragments::page_head(${pageTitle}, 'none')}"></div>
+
+
+<body>
+<div class="container-fluid">
+
+    <div th:replace="~{navigation:: navbar}"></div>
+
+    <div class="mt-4">
+        <h2>Station Control Panel</h2>
+        Welcome
+        <a th:href="@{/account}"
+            sec:authentication="principal.fullname"></a>
+        <span sec:authentication="principal.authorities"></span>
+    </div>
+
+
+
+
+    <div th:replace="~{fragments::footer}"></div>
+
+
+</div>
+</body>
+</html>

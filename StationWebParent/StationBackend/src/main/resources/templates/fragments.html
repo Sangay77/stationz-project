@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+
+<head th:fragment="page_head(title,remove)" th:remove="${remove}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>[[${title}]]- [[${SITE_NAME}]]</title>
+
+
+    <!-- ✅ Load jQuery FIRST -->
+    <script th:src="@{/webjars/jquery/3.7.0/jquery.min.js}"></script>
+
+    <!-- ✅ Then richtext plugin -->
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}"/>
+    <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+    <!-- Bootstrap and others -->
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/fontawesome/all.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
+</head>
+
+
+<body>
+
+<div th:fragment="footer" class="text-center m-3">
+    <footer style="background-color: #f8f9fa;" class="text-dark py-5 border-top">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <a href="/" class="d-flex align-items-center mb-4 text-decoration-none text-dark">
+                        <img th:src="@{/images/station_logo.jpeg}" alt="Station Logo" height="50" class="me-2">
+                        <span class="fs-3 fw-bold">Station Group</span>
+                    </a>
+                    <p class="mb-4">Your one-stop hub for premium cleaning services, dining & entertainment, and automotive
+                        care in Western Australia.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-dark fs-5"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-uppercase mb-4">Our Services</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a th:href="@{/ecopure}" class="nav-link p-0 text-muted">EcoPure
+                            Cleaning</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/druk-station}" class="nav-link p-0 text-muted">Druk
+                            Restaurant & Bar</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/workshop}" class="nav-link p-0 text-muted">Auto
+                            Workshop</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-uppercase mb-4">Company</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"><a th:href="@{/about}" class="nav-link p-0 text-muted">About Us</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/careers}" class="nav-link p-0 text-muted">Careers</a></li>
+                        <li class="nav-item mb-2"><a th:href="@{/blog}" class="nav-link p-0 text-muted">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-uppercase mb-4">Contact Us</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-map-marker-alt mt-1 me-2 text-primary"></i>
+                                <div>
+                                    <h6 class="mb-1">Busselton Location</h6>
+                                    <p class="mb-0 text-muted">123 Station Way, Busselton WA 6280</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mb-3">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-phone-alt mt-1 me-2 text-primary"></i>
+                                <div>
+                                    <h6 class="mb-1">General Enquiries</h6>
+                                    <p class="mb-0 text-muted">(08) 9755 1234</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a th:href="@{/contact}" class="btn btn-outline-primary mt-2">Contact Form</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row border-top mt-4 pt-4">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <p class="mb-0 text-muted">
+                        © <span th:text="${T(java.time.Year).now()}">2025</span> Station Group. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="nav justify-content-center justify-content-md-end">
+                        <li class="nav-item mx-2"><a th:href="@{/privacy}" class="nav-link p-0 text-muted">Privacy
+                            Policy</a></li>
+                        <li class="nav-item mx-2"><a th:href="@{/terms}" class="nav-link p-0 text-muted">Terms of
+                            Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<th th:fragment="sortableHeader(baseUrl, fieldName, displayName)"
+    th:with="sortField=${sortField ?: ''}, sortDir=${sortDir ?: 'asc'}">
+    <a class="text-white text-decoration-none"
+       th:href="@{${baseUrl + '/' + currentPage}(sortField=${fieldName},
+                  sortDir=${sortField == fieldName ? (sortDir == 'asc' ? 'desc' : 'asc') : 'asc'},
+                  keyword=${keyword ?: ''})}">
+        <span th:text="${displayName}">Header</span>
+        <span th:if="${sortField == fieldName}">
+            <i th:classappend="${sortDir == 'asc'} ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+        </span>
+        <span th:unless="${sortField == fieldName}">
+            <i class="fa-solid fa-arrows-up-down" style="opacity: 0.3"></i>
+        </span>
+    </a>
+</th>
+
+<div th:fragment="searchFilter(baseUrl)">
+    <form th:action="@{${baseUrl}}" class="d-flex justify-content-between mb-4">
+        <div class="d-flex">
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+            <label for="keyword" class="form-label me-2">Filter:</label>
+            <input type="search"
+                   name="keyword"
+                   th:value="${keyword}"
+                   class="form-control"
+                   id="keyword"
+                   placeholder="Search"
+                   required/>
+        </div>
+        <div>
+            <input type="submit" value="Search" class="btn btn-primary"/>
+            <input type="button"
+                   value="Clear"
+                   class="btn btn-secondary ms-2"
+                   onclick="clearFilter('${baseUrl}')"/>
+        </div>
+    </form>
+</div>
+
+<div th:fragment="resultsSummary(entityName)" class="text-center m-1">
+    <span th:if="${totalItems > 0}">
+        Showing <span th:text="${entityName}">items</span> # Total Items: [[${totalItems}]]
+        Page [[${currentPage}]] of [[${totalPages}]]
+    </span>
+    <span th:unless="${totalItems > 0}">
+        No <span th:text="${entityName}">items</span> found.
+    </span>
+</div>
+
+<div th:fragment="pagination(baseUrl)" th:if="${totalPages > 1}">
+    <nav>
+        <ul class="pagination justify-content-center">
+            <!-- First Page -->
+            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link"
+                   th:href="@{${baseUrl + '/1'}(
+                       sortField=${sortField},
+                       sortDir=${sortDir},
+                       keyword=${keyword}
+                   )}">
+                    First
+                </a>
+            </li>
+
+            <!-- Previous Page -->
+            <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link"
+                   th:href="@{${baseUrl + '/' + (currentPage - 1)}(
+                       sortField=${sortField},
+                       sortDir=${sortDir},
+                       keyword=${keyword}
+                   )}">
+                    Previous
+                </a>
+            </li>
+
+            <!-- Page Numbers -->
+            <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+                <a class="page-link"
+                   th:href="@{${baseUrl + '/' + i}(
+                       sortField=${sortField},
+                       sortDir=${sortDir},
+                       keyword=${keyword}
+                   )}">
+                    [[${i}]]
+                </a>
+            </li>
+
+            <!-- Next Page -->
+            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link"
+                   th:href="@{${baseUrl + '/' + (currentPage + 1)}(
+                       sortField=${sortField},
+                       sortDir=${sortDir},
+                       keyword=${keyword}
+                   )}">
+                    Next
+                </a>
+            </li>
+
+            <!-- Last Page -->
+            <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                <a class="page-link"
+                   th:href="@{${baseUrl + '/' + totalPages}(
+                       sortField=${sortField},
+                       sortDir=${sortDir},
+                       keyword=${keyword}
+                   )}">
+                    Last
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>
